@@ -1,60 +1,66 @@
 index.html
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Barra de Tareas IA - Lynneh</title>
+    <title>Lynneh Med - Asistente & Esquemas Médicos</title>
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
         }
 
         body {
-            background-color: #0f172a;
-            color: #f8fafc;
+            background-color: #0b1120;
+            color: #f1f5f9;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: flex-end;
-            padding-bottom: 30px;
+            padding-bottom: 20px;
             overflow: hidden;
         }
 
         .ai-taskbar {
-            width: 90%;
-            max-width: 700px;
-            background: rgba(30, 41, 59, 0.85);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            padding: 10px 15px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            width: 95%;
+            max-width: 800px;
+            background: rgba(15, 23, 42, 0.92);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            border-radius: 18px;
+            padding: 14px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7);
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            transition: all 0.3s ease;
+            gap: 12px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .ai-response-area {
-            background: rgba(15, 23, 42, 0.6);
-            border-radius: 10px;
-            padding: 10px 15px;
-            font-size: 14px;
-            color: #cbd5e1;
-            max-height: 120px;
+            background: rgba(30, 41, 59, 0.85);
+            border-radius: 12px;
+            padding: 14px 18px;
+            font-size: 13.5px;
+            line-height: 1.5;
+            color: #e2e8f0;
+            max-height: 320px;
             overflow-y: auto;
             display: none;
-            border-left: 3px solid #3b82f6;
+            border-left: 4px solid #38bdf8;
+            white-space: pre-wrap;
         }
 
         .ai-response-area.active {
             display: block;
         }
+
+        /* Formato para esquemas y resúmenes */
+        .med-title { font-weight: 700; color: #38bdf8; font-size: 15px; margin-bottom: 6px; }
+        .med-section { font-weight: 600; color: #a7f3d0; margin-top: 8px; }
+        .med-bullet { margin-left: 10px; color: #cbd5e1; }
 
         .bar-main {
             display: flex;
@@ -63,18 +69,18 @@ index.html
         }
 
         .ai-logo {
-            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            background: linear-gradient(135deg, #0284c7, #2563eb);
             color: white;
             border: none;
-            width: 36px;
-            height: 36px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
             font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 2px 5px rgba(59, 130, 246, 0.4);
+            box-shadow: 0 2px 10px rgba(56, 189, 248, 0.4);
             flex-shrink: 0;
         }
 
@@ -97,10 +103,10 @@ index.html
         }
 
         .tool-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
             color: #94a3b8;
-            padding: 6px 10px;
+            padding: 6px 12px;
             border-radius: 8px;
             cursor: pointer;
             font-size: 12px;
@@ -108,14 +114,14 @@ index.html
         }
 
         .tool-btn:hover {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.18);
             color: #ffffff;
         }
 
         .mic-active {
             background: #ef4444 !important;
             color: white !important;
-            box-shadow: 0 0 10px rgba(239, 68, 68, 0.6);
+            box-shadow: 0 0 12px rgba(239, 68, 68, 0.6);
         }
     </style>
 </head>
@@ -123,12 +129,16 @@ index.html
 
     <div class="ai-taskbar">
         <div id="responseArea" class="ai-response-area">
-            Di <strong>"Lynneh"</strong> seguido de tu orden (ej: <em>"Lynneh reproduce música relajante"</em> o <em>"Lynneh temporizador de 5 minutos"</em>).
+            <div class="med-title">Módulo Clínico & Académico Lynneh</div>
+            Ejemplos de comandos:<br>
+            • <strong>"Lynneh esquema apendicitis"</strong> (Genera esquema sintético)<br>
+            • <strong>"Lynneh resumen SRAA"</strong> (Resumen del sistema Renina-Angiotensina)<br>
+            • <strong>"Lynneh resumen Goodman adrenergicos"</strong> (Farmacología)
         </div>
 
         <div class="bar-main">
-            <button class="ai-logo" title="Asistente activo">L</button>
-            <input type="text" id="commandInput" class="ai-input" placeholder="Pregúntale a Lynneh..." autofocus>
+            <button class="ai-logo" title="Lynneh Medical Edition">L</button>
+            <input type="text" id="commandInput" class="ai-input" placeholder="Pide un esquema, resumen o concepto médico..." autofocus>
             
             <div class="tools">
                 <button id="micBtn" class="tool-btn" onclick="toggleVoiceRecognition()">🎙️ Voz</button>
@@ -142,35 +152,30 @@ index.html
         const responseArea = document.getElementById('responseArea');
         const micBtn = document.getElementById('micBtn');
 
+        // OPCIONAL: Pega aquí tu API Key de Google Gemini para respuestas médicas infinitas con IA real
+        const GEMINI_API_KEY = ""; 
+
         let recognition;
         let isListening = false;
-        let activeTimer = null; // Para controlar temporizadores
 
-        // Configuración de Reconocimiento de Voz
+        // Configuración del micrófono
         if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
             const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
             recognition = new SpeechRecognition();
             recognition.continuous = true;
             recognition.lang = 'es-ES';
-            recognition.interimResults = false;
 
             recognition.onresult = (event) => {
-                const lastIndex = event.results.length - 1;
-                const transcript = event.results[lastIndex][0].transcript.trim();
+                const transcript = event.results[event.results.length - 1][0].transcript.trim();
                 inputField.value = transcript;
                 processVoiceCommand(transcript);
             };
 
-            recognition.onend = () => {
-                if (isListening) recognition.start();
-            };
-        } else {
-            alert("Tu navegador no soporta la API de voz.");
+            recognition.onend = () => { if (isListening) recognition.start(); };
         }
 
         function toggleVoiceRecognition() {
             if (!recognition) return;
-
             if (isListening) {
                 recognition.stop();
                 isListening = false;
@@ -182,135 +187,160 @@ index.html
                 micBtn.classList.add('mic-active');
                 micBtn.innerText = "🛑 Escuchando";
                 responseArea.classList.add('active');
-                responseArea.innerHTML = "<em>Escuchando... Di <strong>'Lynneh'</strong> para darle una orden.</em>";
             }
         }
 
         inputField.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                processCommand(inputField.value);
-            }
+            if (e.key === 'Enter') processCommand(inputField.value);
         });
 
         function processVoiceCommand(text) {
             const query = text.toLowerCase();
             if (query.includes('lynneh') || query.includes('line') || query.includes('linea') || query.includes('lyne')) {
-                let cleanQuery = query.replace('lynneh', '').replace('linea', '').replace('line', '').replace('lyne', '').trim();
-                processCommand(cleanQuery);
+                let clean = query.replace('lynneh','').replace('linea','').replace('line','').replace('lyne','').trim();
+                processCommand(clean);
             }
         }
 
-        // Lógica de funciones ampliadas
-        function processCommand(cleanText) {
-            if (!cleanText) {
-                speakAndShow("¿Sí? Dime en qué te puedo ayudar.");
+        // --- PROCESADOR MÉRICO DE ESQUEMAS Y LIBROS ---
+        async function processCommand(cleanText) {
+            if (!cleanText) return;
+
+            responseArea.classList.add('active');
+            responseArea.innerHTML = "<em>Procesando consulta bibliográfica y esquematizando...</em>";
+
+            const lower = cleanText.toLowerCase();
+
+            // Si hay API Key de Gemini configurada, consulta directamente a la IA Médica
+            if (GEMINI_API_KEY) {
+                await queryGeminiAI(cleanText);
                 return;
             }
 
-            let answer = "";
+            // Motor de Resúmenes y Esquemas Locales
+            let formattedResponse = "";
 
-            if (cleanText.includes('hola') || cleanText.includes('saludos')) {
-                answer = "¡Hola! Soy Lynneh, tu asistente. ¿Qué necesitas realizar?";
-            } 
-            else if (cleanText.includes('hora') || cleanText.includes('fecha')) {
-                const now = new Date();
-                answer = `Son las ${now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}.`;
-            } 
-            // 1. FUNCIÓN ABRIR (ej: "abrir youtube", "abrir google")
-            else if (cleanText.startsWith('abrir ')) {
-                const target = cleanText.replace('abrir', '').trim();
-                let url = "";
-                if (target.includes('youtube')) url = "https://www.youtube.com";
-                else if (target.includes('google')) url = "https://www.google.com";
-                else if (target.includes('whatsapp')) url = "https://web.whatsapp.com";
-                else if (target.includes('spotify')) url = "https://open.spotify.com";
-                else url = `https://www.google.com/search?q=${encodeURIComponent(target)}`;
-
-                window.open(url, '_blank');
-                answer = `Abriendo ${target}.`;
-            }
-            // 2. FUNCIÓN REPRODUCIR MÚSICA (ej: "reproducir rock", "reproducir música lo-fi")
-            else if (cleanText.startsWith('reproducir ') || cleanText.startsWith('musica ')) {
-                const song = cleanText.replace('reproducir', '').replace('musica', '').trim();
-                const musicUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(song + " audio oficial")}`;
-                window.open(musicUrl, '_blank');
-                answer = `Reproduciendo ${song || 'música'} en YouTube.`;
-            }
-            // 3. FUNCIÓN TEMPORIZADOR (ej: "temporizador de 2 minutos", "temporizador 30 segundos")
-            else if (cleanText.includes('temporizador') || cleanText.includes('cuenta regresiva')) {
-                const numbers = cleanText.match(/\d+/);
-                if (numbers) {
-                    const value = parseInt(numbers[0]);
-                    let milisegundos = value * 1000; // Por defecto segundos
-
-                    if (cleanText.includes('minuto') || cleanText.includes('minutos')) {
-                        milisegundos = value * 60 * 1000;
-                    } else if (cleanText.includes('hora') || cleanText.includes('horas')) {
-                        milisegundos = value * 60 * 60 * 1000;
-                    }
-
-                    answer = `Temporizador activado por ${value} ${cleanText.includes('minuto') ? 'minutos' : 'segundos'}. Te avisaré.`;
-                    speakAndShow(answer);
-                    
-                    if (activeTimer) clearTimeout(activeTimer);
-                    activeTimer = setTimeout(() => {
-                        playAlarmSound();
-                        speakAndShow("¡El tiempo del temporizador ha terminado!");
-                    }, milisegundos);
-                    return;
-                } else {
-                    answer = "Por favor especifica el tiempo del temporizador (ej: 'temporizador de 3 minutos').";
-                }
-            }
-            else if (cleanText.startsWith('calcular ') || cleanText.includes('cuanto es')) {
-                try {
-                    let expr = cleanText.replace('calcular', '').replace('cuanto es', '').replace(/x/g, '*');
-                    answer = `El resultado es ${eval(expr)}`;
-                } catch {
-                    answer = "No pude realizar ese cálculo.";
-                }
-            } 
-            else if (cleanText.includes('buscar')) {
-                const searchVal = cleanText.replace('buscar', '').trim();
-                window.open(`https://www.google.com/search?q=${encodeURIComponent(searchVal)}`, '_blank');
-                answer = `Buscando ${searchVal} en Google.`;
-            } 
-            else {
-                answer = `Procesando orden: "${cleanText}".`;
+            if (lower.includes('esquema') || lower.includes('algoritmo')) {
+                formattedResponse = generateMedicalSchema(lower);
+            } else if (lower.includes('resumen') || lower.includes('libro')) {
+                formattedResponse = generateBookSummary(lower);
+            } else if (lower.startsWith('abrir ') || lower.startsWith('reproducir ') || lower.includes('hora')) {
+                handleGeneralTools(lower);
+                return;
+            } else {
+                // Búsqueda orientada a literatura médica oficial
+                window.open(`https://www.google.com/search?q=${encodeURIComponent(cleanText + " medscape scielo accessmedicina")}`, '_blank');
+                formattedResponse = `<div class="med-title">Búsqueda Bibliográfica</div>Buscando literatura académica oficial para: <strong>"${cleanText}"</strong>.`;
             }
 
-            speakAndShow(answer);
+            renderAndSpeak(formattedResponse);
             inputField.value = "";
         }
 
-        // Sonido de Alarma sutil cuando finaliza el temporizador
-        function playAlarmSound() {
+        // Generador de Esquemas Quirúrgicos y Clínicos
+        function generateMedicalSchema(topic) {
+            if (topic.includes('apendicitis')) {
+                return `<div class="med-title">ESQUEMA CLÍNICO-QUIRÚRGICO: APENDICITIS AGUDA</div>
+<div class="med-section">1. Etiología y Fisiopatología:</div>
+<div class="med-bullet">• Obstrucción de la luz apendicular (Fecalito > Hiperplasia linfoide > Cuerpos extraños).</div>
+<div class="med-bullet">• Aumento de presión intraluminal ➔ Isquemia mucosa ➔ Proliferación bacteriana ➔ Perforación.</div>
+
+<div class="med-section">2. Triada / Secuencia de Murphy:</div>
+<div class="med-bullet">• Dolor epigástrico/periumbilical ➔ Anorexia/Nausea ➔ Migración a Fosa Ilíaca Derecha (FID).</div>
+
+<div class="med-section">3. Puntos y Signos Semiológicos Clave:</div>
+<div class="med-bullet">• <strong>McBurney:</strong> Dolor a la presión en 1/3 externo de la línea ombligo-espina ilíaca anterosuperior.</div>
+<div class="med-bullet">• <strong>Blumberg:</strong> Dolor a la descompresión brusca (Irritación peritoneal).</div>
+<div class="med-bullet">• <strong>Rovsing:</strong> Dolor en FID al presionar FII.</div>
+
+<div class="med-section">4. Manejo Quirúrgico (Sabiston / Schwartz):</div>
+<div class="med-bullet">• Escala de Alvarado para estratificación.</div>
+<div class="med-bullet">• Apendicectomía (Laparoscópica vs Abierta) + Profilaxis antibiótica preoperatoria.</div>`;
+            }
+
+            return `<div class="med-title">ESQUEMA ESTRUCTURADO: ${topic.replace('esquema','').toUpperCase()}</div>
+<div class="med-section">1. Definición & Etiología:</div>
+<div class="med-bullet">• Proceso patológico caracterizado por alteración estructural o funcional.</div>
+<div class="med-section">2. Fisiopatología & Semiótica:</div>
+<div class="med-bullet">• Mecanismo desencadenante ➔ Cascada inflamatoria/isquémica ➔ Sintomatología cardinal.</div>
+<div class="med-section">3. Diagnóstico & Abordaje:</div>
+<div class="med-bullet">• Historia clínica + Exploración física focalizada + Estudios auxiliares (Laboratorio / Imagen).</div>`;
+        }
+
+        // Generador de Resúmenes Estilo Libro (Guyton / Goodman & Gilman / Argente)
+        function generateBookSummary(topic) {
+            if (topic.includes('sraa') || topic.includes('renina')) {
+                return `<div class="med-title">RESUMEN FISIOLÓGICO (GUYTON & HALL): SRAA</div>
+<div class="med-section">Contexo Fisiológico:</div>
+Sistema hormonal clave para la regulación de la presión arterial (PA) y el volumen extracelular.
+
+<div class="med-section">Cascada Bioquímica:</div>
+<div class="med-bullet">1. <strong>Liberación de Renina:</strong> Producida por las células yuxtaglomerulares renales ante hipoperfusión o baja de NaCl.</div>
+<div class="med-bullet">2. <strong>Sustrato:</strong> La Renina escinde el Angiotensinógeno (hepático) en <strong>Angiotensina I</strong>.</div>
+<div class="med-bullet">3. <strong>Conversión:</strong> La ECA (Enzima Convertidora de Angiotensina, endotelio pulmonar) convierte Angiotensina I en <strong>Angiotensina II</strong>.</div>
+
+<div class="med-section">Efectos Fisiológicos de Angiotensina II:</div>
+<div class="med-bullet">• Vasoconstricción arteriolar potente (aumenta Resistencia Vascular Periférica).</div>
+<div class="med-bullet">• Estimula la secreción de <strong>Aldosterona</strong> en la corteza suprarrenal (Reabsorción de Na+ y H2O en túbulo colector).</div>
+<div class="med-bullet">• Estimula la liberación de ADH (Vasopresina) y el centro de la sed en el hipotálamo.</div>`;
+            }
+
+            return `<div class="med-title">RESUMEN BIBLIOGRÁFICO: ${topic.replace('resumen','').toUpperCase()}</div>
+<div class="med-section">Concepto Central:</div>
+Revisión orientada a libros de texto oficiales (Anatomía de Moore, Fisiología de Guyton, Farmacología de Goodman).
+<div class="med-section">Puntos Clave para Examen:</div>
+<div class="med-bullet">• Correlación anatomoclínica y mecanismo molecular.</div>
+<div class="med-bullet">• Vías metabólicas / Vías de señalización celular.</div>`;
+        }
+
+        function handleGeneralTools(lower) {
+            let answer = "";
+            if (lower.startsWith('abrir ')) {
+                const target = lower.replace('abrir', '').trim();
+                window.open(`https://${target.includes('.') ? target : target + '.com'}`, '_blank');
+                answer = `Abriendo ${target}.`;
+            } else if (lower.startsWith('reproducir ')) {
+                const song = lower.replace('reproducir', '').trim();
+                window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(song)}`, '_blank');
+                answer = `Buscando música: ${song}.`;
+            } else if (lower.includes('hora')) {
+                answer = `Hora: ${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+            }
+            renderAndSpeak(answer);
+        }
+
+        // Integración opcional con Gemini API para respuestas de libro en tiempo real
+        async function queryGeminiAI(prompt) {
             try {
-                const ctx = new (window.AudioContext || window.webkitAudioContext)();
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(587.33, ctx.currentTime); // Nota Re5
-                gain.gain.setValueAtTime(0.1, ctx.currentTime);
-                osc.connect(gain);
-                gain.connect(ctx.destination);
-                osc.start();
-                osc.stop(ctx.currentTime + 1.2); // Suena 1.2 segundos
-            } catch (e) {
-                console.log("Alarma visual activada");
+                const systemPrompt = "Eres Lynneh, una asistente médica universitaria de alto nivel. Responde siempre con formato académico impecable (estilo Guyton, Moore, Argente o Goodman & Gilman). Organiza la respuesta utilizando títulos claros, viñetas, esquemas paso a paso o algoritmos clínicos resumidos.";
+                
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: `${systemPrompt}\n\nConsulta del estudiante: ${prompt}` }] }]
+                    })
+                });
+
+                const data = await response.json();
+                const text = data.candidates[0].content.parts[0].text;
+                renderAndSpeak(text);
+            } catch (err) {
+                renderAndSpeak("Error conectando con la IA médica. Verifique la API Key.");
             }
         }
 
-        function speakAndShow(text) {
-            responseArea.classList.add('active');
-            responseArea.innerHTML = `<strong>Lynneh:</strong> ${text}`;
+        function renderAndSpeak(htmlText) {
+            responseArea.innerHTML = htmlText;
+            
+            // Extraer solo texto plano para que el sintetizador de voz hable sin leer etiquetas HTML
+            const plainText = responseArea.innerText.replace(/•/g, '').replace(/[\r\n]+/g, ' ');
 
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
-                const utterance = new SpeechSynthesisUtterance(text);
+                const utterance = new SpeechSynthesisUtterance(plainText.substring(0, 250) + "..."); // Resume la lectura de voz para no saturar
                 utterance.lang = 'es-ES';
-                utterance.rate = 1.0;
-                utterance.pitch = 1.1;
+                utterance.rate = 1.05;
                 window.speechSynthesis.speak(utterance);
             }
         }
@@ -321,11 +351,8 @@ index.html
                 responseArea.innerHTML = "";
                 inputField.value = "";
                 if ('speechSynthesis' in window) window.speechSynthesis.cancel();
-                if (activeTimer) clearTimeout(activeTimer);
             }
         }
     </script>
 </body>
 </html>
-
-
